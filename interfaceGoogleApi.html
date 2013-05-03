@@ -1,0 +1,87 @@
+<html>
+<head>
+<title>Teste Google Street View API</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style type="text/css">
+    div #conteudo{
+        width: 100%;
+        height: 100%;
+    }
+    div #resultado{
+        margin-top: 20px;
+    }
+    .text160{
+        width: 160px;
+    }
+    .text40{
+        width: 40px;
+    }
+    .italico
+    {
+        font-style:italic;
+        font-size: 14px;
+    }
+</style>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript">
+    var urlBaseApi = "http://maps.googleapis.com/maps/api/streetview";
+    var url = "";
+    var contador = 0;
+    
+    $(document).ready(function () {
+        $("#enviar").click(function() {
+            var size = "400x300";
+            var enderecoValue = encodeURI($("#endereco").val());
+            var headingValue = $("#sentido").val();
+            var fovValue = $("#horizontal").val();
+            var pitchValue = $("#vertical").val();
+            url = urlBaseApi + "?size=" +size+ "&location=" +enderecoValue+ "&heading=" +headingValue+ "&fov=" +fovValue+ "&pitch=" +pitchValue+ "&sensor=false";
+            console.log = url;
+            $("#imgResultado").attr("src", url);
+            contador++;
+            $("#utilizacoes").html("Visualizações: " + contador);
+        });
+    });
+</script>
+</head>
+<body>
+    <div id="conteudo">
+        <h2>Interface Google Api</h2>
+        <div id="divFormulario">
+            <table>
+                <tr>
+                    <td>Endereço:</td>
+                    <td><input id="endereco" type="text" class="text160" /></td>
+                    <td class="italico">Ex: Rua do Matão, 1010</td>
+                </tr>
+                <tr>
+                    <td>Heading:</td>
+                    <td><input id="sentido" type="text" class="text40" /></td>
+                    <td class="italico">0 a 360</td>
+                </tr>
+                <tr>
+                    <td>Fov:</td>
+                    <td><input id="horizontal" type="text" class="text40" /></td>
+                    <td class="italico">20 a 120</td>
+                </tr>
+                <tr>
+                    <td>Pitch:</td>
+                    <td><input id="vertical" type="text" class="text40" /></td>
+                    <td class="italico">-90 a 90</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button id="enviar">Enviar</button></td>
+                    <td></td>
+                </tr>
+            </table>    
+        </div>
+        <div id="divResultado">
+            <img id="imgResultado"/>
+        </div>
+        <div id="utilizacoes">
+
+        </div>
+    </div>
+</body>
+</html>
