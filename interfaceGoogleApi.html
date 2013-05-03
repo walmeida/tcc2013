@@ -22,7 +22,9 @@
         font-size: 14px;
     }
 </style>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.10.2.js"></script>
+<script type="text/javascript" src="js/ui.anglepicker.js"></script>
 <script type="text/javascript">
     var urlBaseApi = "http://maps.googleapis.com/maps/api/streetview";
     var url = "";
@@ -41,8 +43,25 @@
             contador++;
             $("#utilizacoes").html("Visualizações: " + contador);
         });
+
+        $("#anglepicker").anglepicker({
+                value: 90,
+                clockwise: true,
+                change: function(e, ui) {
+                    
+                },
+                start: function(e, ui) {
+                    
+                },
+                stop: function(e, ui) {
+                    $("#sentido").val(ui.value);
+                    $('#enviar').trigger('click');
+                }
+            });
+
     });
 </script>
+<link rel="stylesheet" type="text/css" href="css/ui.anglepicker.css">
 </head>
 <body>
     <div id="conteudo">
@@ -81,6 +100,10 @@
         </div>
         <div id="utilizacoes">
 
+        </div>
+        <div class='angle-container'>
+            <div id="anglepicker"></div>
+            <div class='log'></div>
         </div>
     </div>
 </body>
