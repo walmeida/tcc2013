@@ -13,8 +13,8 @@
     .text160{
         width: 160px;
     }
-    .text40{
-        width: 40px;
+    .text50{
+        width: 50px;
     }
     .italico
     {
@@ -59,9 +59,39 @@
                 }
             });
 
+        
+    
+        $("#slider").slider({
+            orientation: "horizontal",
+            range: "min",
+            min: 20,
+            max: 120,
+            value: 60,
+            slide: function( event, ui ) {
+                $( "#amount" ).val( ui.value );
+            }
+        });
+        $("#amount").val( $( "#slider" ).slider("value") );
+
+
+    
+        $("#slider-vertical").slider({
+            orientation: "vertical",
+            range: "min",
+            min: -90,
+            max: 90,
+            value: 0,
+            slide: function( event, ui ) {
+                $( "#amountVert" ).val( ui.value );
+            }
+        });
+        $("#amountVert").val( $("#slider-vertical").slider("value") );
+    
+
     });
 </script>
 <link rel="stylesheet" type="text/css" href="css/ui.anglepicker.css">
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
 </head>
 <body>
     <div id="conteudo">
@@ -70,23 +100,32 @@
             <table>
                 <tr>
                     <td>Endereço:</td>
-                    <td><input id="endereco" type="text" class="text160" /></td>
-                    <td class="italico">Ex: Rua do Matão, 1010</td>
+                    <td><input id="endereco" type="text" class="text160" placeholder="Ex: Rua do Matão, 1010" /></td>
+                    <td class="italico"></td>
                 </tr>
                 <tr>
                     <td>Heading:</td>
-                    <td><input id="sentido" type="text" class="text40" /></td>
-                    <td class="italico">0 a 360</td>
+                    <td><input id="sentido" type="text" class="text50" placeholder="0 a 360" /></td>
+                    <td class="italico">
+                        <div class='angle-container'>
+                            <div id="anglepicker"></div>
+                            <div class='log'></div>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>Fov:</td>
-                    <td><input id="horizontal" type="text" class="text40" /></td>
-                    <td class="italico">20 a 120</td>
+                    <td><input id="horizontal" type="text" class="text50" placeholder="20 a 120" /></td>
+                    <td class="italico">
+                        <div id="slider"></div>
+                    </td>
                 </tr>
                 <tr>
                     <td>Pitch:</td>
-                    <td><input id="vertical" type="text" class="text40" /></td>
-                    <td class="italico">-90 a 90</td>
+                    <td><input id="vertical" type="text" class="text50" placeholder="-90 a 90" /></td>
+                    <td class="italico">
+                        <div id="slider-vertical"></div>
+                    </td>
                 </tr>
                 <tr>
                     <td></td>
@@ -95,16 +134,14 @@
                 </tr>
             </table>    
         </div>
+        
         <div id="divResultado">
             <img id="imgResultado"/>
         </div>
         <div id="utilizacoes">
 
         </div>
-        <div class='angle-container'>
-            <div id="anglepicker"></div>
-            <div class='log'></div>
-        </div>
+        
     </div>
 </body>
 </html>
