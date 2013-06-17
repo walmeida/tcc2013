@@ -1,0 +1,22 @@
+div #conteudo{
+    width: 100%;
+    height: 100%;
+}
+
+div #resultado{
+    margin-top: 20px;
+}
+
+.text160{
+    width: 160px;
+}
+
+.text50{
+    width: 50px;
+}
+
+.italico
+{
+    font-style:italic;
+    font-size: 14px;
+}
