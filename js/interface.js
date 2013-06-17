@@ -2,18 +2,47 @@
     var url = "";
     var contador = 0;
     
+    function mostrarImagem(endereco){
+        var size = "400x300";
+        var enderecoValue = encodeURI(endereco);
+        var headingValue = $("#sentido").val();
+        var fovValue = $("#horizontal").val();
+        var pitchValue = $("#vertical").val();
+        contador++;
+        $("#utilizacoes").html("Visualizações: " + contador);
+        url = urlBaseApi + "?size=" +size+ "&location=" +enderecoValue+ "&heading=" +headingValue+ "&fov=" +fovValue+ "&pitch=" +pitchValue+ "&sensor=false";
+        return url;
+    }
+    
     $(document).ready(function () {
         $("#enviar").click(function() {
-            var size = "400x300";
-            var enderecoValue = encodeURI($("#endereco").val());
-            var headingValue = $("#sentido").val();
-            var fovValue = $("#horizontal").val();
-            var pitchValue = $("#vertical").val();
-            url = urlBaseApi + "?size=" +size+ "&location=" +enderecoValue+ "&heading=" +headingValue+ "&fov=" +fovValue+ "&pitch=" +pitchValue+ "&sensor=false";
-            console.log = url;
+            url = mostrarImagem($("#endereco").val());
             $("#imgResultado").attr("src", url);
-            contador++;
-            $("#utilizacoes").html("Visualizações: " + contador);
+        });
+
+        $("#percorrer").click(function() {
+            var passo = $("#passo").val();
+            var numeroDeImagens = $("#numeroDeResultados").val();
+            var sentido = $("#sentido").val();
+            var str = $("#endereco").val();
+            var padrao = /[0-9]+/i;
+            var numero = parseInt(str.match(padrao));
+
+            if(sentido <= 180){
+                passo = passo * (-1);
+            }
+
+            $("#divImagens").empty();
+            var enderecoValue = $("#endereco").val();
+            
+            for (var i = 0; i < numeroDeImagens; i++) {
+                var numeroAntigo = numero;
+                numero = numero + passo;
+                enderecoValue = enderecoValue.replace(numeroAntigo, numero);
+                url = mostrarImagem(enderecoValue);
+                imgHtml = '<img id="resultado' +i+ '" class="imgResultados" src="' +url+ '" />';
+                $("#divImagens").append(imgHtml);    
+            }    
         });
 
         $("#anglepicker").anglepicker({
@@ -29,7 +58,7 @@
                     $("#sentido").val(ui.value);
                     $('#enviar').trigger('click');
                 }
-            });
+        });
         $("#sentido").val( $("#anglepicker").anglepicker("value") );
         
     
@@ -58,10 +87,18 @@
         });
         $("#vertical").val( $("#slider-vertical").slider("value") );
 
+
         $("#endereco").keypress(function(event) {
             if ( event.which == 13 ) {
                 event.preventDefault();
                 $('#enviar').trigger('click');
+            }
+        });
+
+        $("#numeroDeResultados").keypress(function(event) {
+            if ( event.which == 13 ) {
+                event.preventDefault();
+                $('#percorrer').trigger('click');
             }
         });
 

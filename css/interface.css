@@ -7,6 +7,11 @@ div #resultado{
     margin-top: 20px;
 }
 
+.imgResultados{
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
 .text160{
     width: 160px;
 }
@@ -15,8 +20,6 @@ div #resultado{
     width: 50px;
 }
 
-.italico
-{
-    font-style:italic;
-    font-size: 14px;
+.tdEspaco{
+    width: 100px;
 }
