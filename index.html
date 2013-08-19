@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>Teste Google Street View API</title>
@@ -5,6 +6,8 @@
     <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.10.2.js"></script>
     <script type="text/javascript" src="js/ui.anglepicker.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script type="text/javascript" src="js/maps_init.js"></script>
     <script type="text/javascript" src="js/interface.js"></script>
     <link rel="stylesheet" type="text/css" href="css/ui.anglepicker.css">
     <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
@@ -13,6 +16,7 @@
 <body>
     <div id="conteudo">
         <h2>Interface Google Api</h2>
+        <div id="map" style="width: 400px; height: 300px; float: left; padding: 0;"></div>
         <div id="divFormulario">
             <table>
                 <tr>

@@ -15,8 +15,13 @@
     }
     
     $(document).ready(function () {
+        /* Init for maps_init.js */
+        init();
+
         $("#enviar").click(function() {
-            url = mostrarImagem($("#endereco").val());
+            var enderecoValue = $("#endereco").val();
+            findAddress(enderecoValue);
+            url = mostrarImagem(enderecoValue);
             $("#imgResultado").attr("src", url);
         });
 
