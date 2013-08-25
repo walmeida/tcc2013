@@ -5,6 +5,7 @@
 	var start_pin, end_pin, pivot_pin, camera_pin;
 	var _elevation = 0;
 	var _route_markers = [];
+    var hyperlapse;
 
 	function init() {
 
@@ -63,13 +64,74 @@
 		pivot_pin = new google.maps.Marker({
 			position: lookat_point,
 			draggable: true,
-			map: map
+			map: map,
+            visible: false
 		});
 
 		google.maps.event.addListener (pivot_pin, 'dragend', function (event) {
 			hyperlapse.setLookat( pivot_pin.getPosition() );
-			/*changeHash();*/
+			changeHash();
 		});
+
+        /* Hyperlapse */
+
+        var pano = document.getElementById('pano');
+        var is_moving = false;
+        var px, py;
+        var onPointerDownPointerX=0, onPointerDownPointerY=0;
+
+        hyperlapse = new Hyperlapse(pano, {
+            lookat: lookat_point,
+            fov: 80,
+            millis: 50,
+            width: 400,
+            height: 300,
+            zoom: 2,
+            use_lookat: false,
+            distance_between_points: 5,
+            max_points: 100,
+            elevation: _elevation
+        });
+        
+        
+
+        hyperlapse.onError = function(e) {
+            console.log( "ERROR: "+ e.message );
+        };
+
+        hyperlapse.onRouteProgress = function(e) {
+            _route_markers.push( new google.maps.Marker({
+                position: e.point.location,
+                draggable: false,
+                icon: "dot_marker.png",
+                map: map
+                })
+            );
+        };
+
+        hyperlapse.onRouteComplete = function(e) {
+            directions_renderer.setDirections(e.response);
+            console.log( "Number of Points: "+ hyperlapse.length() );
+            hyperlapse.load();
+        };
+
+        hyperlapse.onLoadProgress = function(e) {
+            console.log( "Loading: "+ (e.position+1) +" of "+ hyperlapse.length() );
+        };
+
+        hyperlapse.onLoadComplete = function(e) {
+            hyperlapse.position.x = -90;
+            hyperlapse.play();
+        };
+
+        hyperlapse.onFrame = function(e) {
+            console.log( "" +
+                "Start: " + start_pin.getPosition().toString() + 
+                "<br>End: " + end_pin.getPosition().toString() + 
+                "<br>Lookat: " + pivot_pin.getPosition().toString() + 
+                "<br>Position: "+ (e.position+1) +" of "+ hyperlapse.length() );
+            camera_pin.setPosition(e.point.location);
+        };
 
 	}
 
@@ -104,7 +166,7 @@
         var c2 = new google.maps.LatLng(center.lat(), center.lng());
         var c3 = new google.maps.LatLng(center.lat(), center.lng()+spacing);
 
-        //hyperlapse.lookat = c2;
+        hyperlapse.lookat = c2;
         pivot_pin.setPosition(c2);
 
         snapToRoad(c1, function(result1) {
@@ -118,3 +180,31 @@
             });
         });
     }
+
+    function generate(){
+        console.log( "Generating route..." );
+
+        directions_renderer.setDirections({routes: []});
+
+        var marker;
+        while(_route_markers.length > 0) {
+            marker = _route_markers.pop();
+            marker.setMap(null);
+        }
+
+        request = {
+            origin: start_point, 
+            destination: end_point, 
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+        };
+
+        directions_service.route(request, function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {   
+                hyperlapse.generate({route: response});
+            } else {
+                console.log(status);
+            }
+        })
+    }
+
+    

@@ -47,7 +47,9 @@
                 url = mostrarImagem(enderecoValue);
                 imgHtml = '<img id="resultado' +i+ '" class="imgResultados" src="' +url+ '" />';
                 $("#divImagens").append(imgHtml);    
-            }    
+            }
+
+            generate();    
         });
 
         $("#anglepicker").anglepicker({
