@@ -18,94 +18,87 @@
         /* Init for maps_init.js */
         init();
 
-        $("#enviar").click(function() {
+        $("#localizar").click(function() {
             var enderecoValue = $("#endereco").val();
             findAddress(enderecoValue);
-            url = mostrarImagem(enderecoValue);
-            $("#imgResultado").attr("src", url);
         });
 
         $("#percorrer").click(function() {
-            var passo = $("#passo").val();
-            var numeroDeImagens = $("#numeroDeResultados").val();
-            var sentido = $("#sentido").val();
-            var str = $("#endereco").val();
-            var padrao = /[0-9]+/i;
-            var numero = parseInt(str.match(padrao));
-
-            if(sentido <= 180){
-                passo = passo * (-1);
-            }
-
-            $("#divImagens").empty();
-            var enderecoValue = $("#endereco").val();
-            
-            for (var i = 0; i < numeroDeImagens; i++) {
-                var numeroAntigo = numero;
-                numero = numero + passo;
-                enderecoValue = enderecoValue.replace(numeroAntigo, numero);
-                url = mostrarImagem(enderecoValue);
-                imgHtml = '<img id="resultado' +i+ '" class="imgResultados" src="' +url+ '" />';
-                $("#divImagens").append(imgHtml);    
-            }
-
             generate();    
+        });
+
+        $("#play").click(function() {
+            playCanvasAnim();    
+        });
+
+        $("#pause").click(function() {
+            pauseCanvasAnim();    
+        });
+
+        $("#prev").click(function() {
+            prevCanvasAnim();    
+        });
+
+        $("#next").click(function() {
+            nextCanvasAnim();    
+        });
+
+        $("#gerarImagens").click(function() {
+            obterImagens();    
         });
 
         $("#anglepicker").anglepicker({
                 value: 90,
                 clockwise: true,
                 change: function(e, ui) {
-                    
+                    updateHeadingValue(ui.value);
                 },
                 start: function(e, ui) {
                     
                 },
                 stop: function(e, ui) {
-                    $("#sentido").val(ui.value);
-                    $('#enviar').trigger('click');
+ 
                 }
         });
-        $("#sentido").val( $("#anglepicker").anglepicker("value") );
-        
-    
-        $("#slider").slider({
+            
+        $("#fov").slider({
             orientation: "horizontal",
             range: "min",
-            min: 20,
-            max: 120,
-            value: 60,
+            min: 1,
+            max: 180,
+            value: 90,
             slide: function( event, ui ) {
-                $("#horizontal").val( ui.value );
+                updateFovValue(ui.value);
             }
         });
-        $("#horizontal").val( $("#slider").slider("value") );
-
-    
-        $("#slider-vertical").slider({
+           
+        $("#pos_y").slider({
             orientation: "vertical",
             range: "min",
             min: -90,
             max: 90,
             value: 0,
             slide: function( event, ui ) {
-                $("#vertical").val( ui.value );
+                updatePositionYValue(ui.value);
             }
         });
-        $("#vertical").val( $("#slider-vertical").slider("value") );
 
+        $("#interval").slider({
+            orientation: "horizontal",
+            range: "min",
+            min: 10,
+            max: 250,
+            value: 90,
+            slide: function( event, ui ) {
+                updateIntervalValue(ui.value);
+            }
+        });
+        
 
         $("#endereco").keypress(function(event) {
             if ( event.which == 13 ) {
                 event.preventDefault();
-                $('#enviar').trigger('click');
-            }
-        });
-
-        $("#numeroDeResultados").keypress(function(event) {
-            if ( event.which == 13 ) {
-                event.preventDefault();
-                $('#percorrer').trigger('click');
+                $('#localizar').trigger('click');
             }
         });
 

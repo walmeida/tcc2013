@@ -17,73 +17,55 @@
     <link rel="stylesheet" type="text/css" href="css/interface.css">
 </head>
 <body>
-    <div id="conteudo">
-        <h2>Interface Google Api</h2>
-        <div id="map" style="width: 400px; height: 300px; float: left; padding: 0;"></div>
-        <div id="divFormulario">
-            <table>
-                <tr>
-                    <td>Endereço:</td>
-                    <td><input id="endereco" type="text" class="text160" placeholder="Ex: Rua do Matão, 1010" /></td>
-                    <td></td>
-                    <td class="tdEspaco"></td>
-                    <td>Passo:</td>
-                    <td><input id="passo" type="text" class="text50" placeholder="Ex: 10" /></td>
-                </tr>
-                <tr>
-                    <td>Heading:</td>
-                    <td><input id="sentido" type="text" class="text50" placeholder="0 a 360" /></td>
-                    <td>
-                        <div class='angle-container'>
-                            <div id="anglepicker"></div>
-                            <div class='log'></div>
-                        </div>
-                    </td>
-                    <td></td>
-                    <td>Número de Imagens:</td>
-                    <td><input id="numeroDeResultados" type="text" class="text50" placeholder="Ex: 9" /></td>
-                </tr>
-                <tr>
-                    <td>Fov:</td>
-                    <td><input id="horizontal" type="text" class="text50" placeholder="20 a 120" /></td>
-                    <td>
-                        <div id="slider"></div>
-                    </td>
-                    <td></td>
-                    <td><button id="percorrer">Percorrer</button></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Pitch:</td>
-                    <td><input id="vertical" type="text" class="text50" placeholder="-90 a 90" /></td>
-                    <td>
-                        <div id="slider-vertical"></div>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><button id="enviar">Enviar</button></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>    
+    <div id="conteudo" style="width: 100%; height: 100%">
+        <div id="superior" style="margin-bottom: 10px;">
+            <h2>Interface Google Api</h2>
+            <input id="endereco" type="text" class="text160" placeholder="Rua do Matão, 1010" />
+            <button id="localizar">Localizar</button>
+            <button id="percorrer">Percorrer</button>
         </div>
-        
-        <div id="divResultado">
-            <img id="imgResultado"/>
-        </div>
-        <div id="utilizacoes">
 
+        <div id="central" style="width: 100%; float: left;">
+            <div id="map" style="width: 400px; height: 300px; float: left; padding: 0;">
+
+            </div>
+            <div id="pano" style="float: left; margin-left: 10px;">
+
+            </div>
         </div>
+
+        <div id="controles" style="width: 100%; float: left;">
+            <div id="control1" style="float: left; margin: 5px 30px 5px 10px;">
+                <span>Posição X:</span>
+                <div class='angle-container'>
+                    <div id="anglepicker"></div>
+                    <div class='log'></div>
+                </div>
+            </div>
+            <div id="control2" style="float: left; margin: 5px 30px 5px 10px;">
+                <span>Posição Y:</span>
+                <div id="pos_y"></div>
+            </div>
+            <div id="control3" style="float: left; margin: 5px 30px 5px 10px;">
+                <span>Fov:</span>
+                <div id="fov" style="width: 100px"></div>
+            </div>
+            <div id="control4" style="float: left; margin: 5px 30px 5px 10px;">
+                <span>Intervalo:</span>
+                <div id="interval"></div>
+            </div>
+             <div id="control5" style="float: left; margin: 5px 30px 5px 10px;">
+                <button id="play">Play</button>
+                <button id="pause">Pause</button>
+                <button id="prev">Anterior</button>
+                <button id="next">Proximo</button>
+            </div>
+            <div id="control6" style="float: left; margin: 5px 30px 5px 10px;">
+                <button id="gerarImagens">Obter Imagens</button>
+            </div>
+        </div>
+
         <div id="divImagens">
-
-        </div>
-        <div id="pano">
 
         </div>
         

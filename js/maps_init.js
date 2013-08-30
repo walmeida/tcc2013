@@ -207,4 +207,53 @@
         })
     }
 
+    function updateHeadingValue(value){
+        hyperlapse.position.x = value;
+    }
+
+    function updatePositionYValue(value){
+        hyperlapse.position.y = value;
+    }
+
+    function updateFovValue(value){
+        hyperlapse.setFOV(value);
+    }
+
+    function updateIntervalValue(value){
+        hyperlapse.millis = value;
+    }
+
+    function playCanvasAnim(){
+        hyperlapse.play();
+    }
+
+    function pauseCanvasAnim(){
+        hyperlapse.pause();
+    }
+
+    function prevCanvasAnim(){
+        hyperlapse.prev();
+    }
+
+    function nextCanvasAnim(){
+        hyperlapse.next();
+    }
+
+    function obterImagens(){
+        hyperlapse.pause();
+        var img = $('<img id="resultadoA" />');
+        var canvas = $('#pano').find('canvas')[0];
+        var dataURL = canvas.toDataURL();
+        img.attr('src', dataURL);
+        img.appendTo('#divImagens');
+        /*for (var i = 0; i < hyperlapse.length(); i++) {
+                hyperlapse.setFrameByIndex(i);           
+                var img = $('<img id="resultado' +i+ '" />');
+                var canvas = $('#pano').find('canvas')[0];
+                var dataURL = canvas.toDataURL();
+                img.attr('src', dataURL);
+                img.appendTo('#divImagens');
+        }*/
+    }
+
     

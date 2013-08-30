@@ -790,4 +790,31 @@ var Hyperlapse = function(container, params) {
 			drawMaterial();
 		}
 	};
+
+	/**
+	 * Returns a Image by index
+	 * @index {Number}
+	 * @returns {Image}
+	 */
+	this.getImageByIndex = function(index) {
+		if((index > 0) && (index < _h_points.length)) {
+			return _h_points[index].image;
+		}
+	};
+
+	/**
+	 * Display a frame by index
+	 * @fires Hyperlapse#onFrame
+	 */
+	this.setFrameByIndex = function(index) {
+		var prev_index_value;
+		self.pause();
+
+		if((index > 0) && (index < _h_points.length)) {
+			prev_index_value = _point_index;
+			_point_index = index;
+			drawMaterial();
+			_point_index = prev_index_value;
+		}
+	};
 };
