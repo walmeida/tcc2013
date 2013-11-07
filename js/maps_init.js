@@ -103,7 +103,7 @@
             _route_markers.push( new google.maps.Marker({
                 position: e.point.location,
                 draggable: false,
-                icon: "dot_marker.png",
+                icon: "img/dot_marker.png",
                 map: map
                 })
             );
