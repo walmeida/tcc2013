@@ -13,6 +13,17 @@
         url = urlBaseApi + "?size=" +size+ "&location=" +enderecoValue+ "&heading=" +headingValue+ "&fov=" +fovValue+ "&pitch=" +pitchValue+ "&sensor=false";
         return url;
     }
+
+    function showImg() {
+        console.log("showImg()");
+        $("#pano").animate({
+            "width":"400px",
+            "background-color": "#e5e5e3"
+        }, 500);
+        $("#controles-wrap").animate({
+            "bottom": "0",
+        }, 500);
+    }
     
     $(document).ready(function () {
         /* Init for maps_init.js */
