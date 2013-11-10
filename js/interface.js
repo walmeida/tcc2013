@@ -99,7 +99,7 @@
             range: "min",
             min: 10,
             max: 250,
-            value: 90,
+            value: 250,
             slide: function( event, ui ) {
                 updateIntervalValue(ui.value);
             }

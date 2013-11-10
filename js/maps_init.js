@@ -83,7 +83,7 @@
         hyperlapse = new Hyperlapse(pano, {
             lookat: lookat_point,
             fov: 80,
-            millis: 50,
+            millis: 250,
             width: 400,
             height: 300,
             zoom: 2,
